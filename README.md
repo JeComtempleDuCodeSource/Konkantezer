@@ -22,37 +22,21 @@ Konkantezer [directory name] [extract directory]```
 ## Build:
 * For building you'll need git, cmake, and a compiler of course and once you get that simply run:\
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    ```
-    git clone "https://github.com/JeComtempleDuCodeSource/Konkantezer"
-    ```
+    ```git clone "https://github.com/JeComtempleDuCodeSource/Konkantezer"```
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    ```
-    cd "./Konkantezer/Source" 
-    ```
+    ```cd "./Konkantezer/Source" ```
 * If you're on windows and using mingw: 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    ```
-    cmake -G"MinGW Makefiles" -B"./build" -S"./"
-    ``` 
+    ```cmake -G"MinGW Makefiles" -B"./build" -S"./"``` 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    ```
-    cd "./build"
-    ``` 
+    ```cd "./build"``` 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    ```
-    mingw32-make
-    ``` 
+    ```mingw32-make``` 
 * If not just: 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    ```
-    cmake -B"./build -S./"
-    ``` 
+    ```cmake -B"./build -S./"``` 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    ```
-    cd "./build"
-    ``` 
+    ```cd "./build"``` 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    ```
-    make
-    ``` 
+    ```make``` 
     
