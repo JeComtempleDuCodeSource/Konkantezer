@@ -20,7 +20,7 @@ Konkantezer [directory name] [extract directory]```
 
 
 ## Build:
-&nbsp;&nbsp;&nbsp;&nbsp;For building you'll need git, cmake, and a compiler of course and once you get that simply run:\
+* For building you'll need git, cmake, and a compiler of course and once you get that simply run:\
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     git clone "https://github.com/JeComtempleDuCodeSource/Konkantezer"
     ```\
@@ -28,7 +28,7 @@ Konkantezer [directory name] [extract directory]```
     cd "./Konkantezer/Source" 
     ```\
     \
-    &nbsp;&nbsp;&nbsp;&nbsp;If you're on windows and using mingw: \
+* If you're on windows and using mingw: \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     cmake -G"MinGW Makefiles" -B"./build" -S"./"
     ``` \
@@ -39,7 +39,7 @@ Konkantezer [directory name] [extract directory]```
     mingw32-make
     ``` \
     \
-    &nbsp;&nbsp;&nbsp;&nbsp;If not just: \
+* If not just: \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     cmake -B"./build -S./"
     ``` \
