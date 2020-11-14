@@ -1,6 +1,6 @@
 # Konkantezer
 Simple c program that helps you create an C array to embed file in your C/C++ code. \
-It can also create ready to be compiled C source to extract directories very helpful if you don't want to ship you program in a archive. \
+It can also create ready to be compiled C source to extract directories very helpful if you don't want to ship you program in a archive. 
 
 ## TO DO
 * Comment code: On going! 
@@ -11,12 +11,14 @@ It can also create ready to be compiled C source to extract directories very hel
 ## Use 
 * "Konkantize" a file: \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
-Konkantezer [filename] [extract directory]```\
+Konkantezer [filename] [extract directory]```
+\
 
 
 * "Konkantize" a directory: \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
-Konkantezer [directory name] [extract directory]```\
+Konkantezer [directory name] [extract directory]```
+\
 
 
 ## Build:
