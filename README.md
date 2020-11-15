@@ -25,7 +25,7 @@ Konkantezer [directory_name] [extract_directory]```
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     git clone "https://github.com/JeComtempleDuCodeSource/Konkantezer"``` \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
-    cd "./Konkantezer/Source"``` \
+    cd "./Konkantezer/Source"``` 
 * If you're on windows and using mingw:\
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     cmake -G"MinGW Makefiles" -B"./build" -S"./"``` \
