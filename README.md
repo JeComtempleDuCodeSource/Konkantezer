@@ -6,6 +6,7 @@ It can also create ready to be compiled C source to extract directories, very he
 * Comment code: On going! 
 * Selectable maximum size of .c parts: Soon! 
 * Pairing with compression: With my Treemer program i'll try to do something. 
+* Colored output with the help of Prisma.h.
 
 ## Use 
 * "Konkantize" a file: \
