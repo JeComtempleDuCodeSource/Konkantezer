@@ -68,7 +68,7 @@ char* getVarBaseName(char* filePath)
     return varName;
 }
 
-char* getOutputFileNameNoPrefix(char* filePath)
+char* getOutputFileNameNoBasename(char* filePath, char* Prefix, char* Suffix)
 {
     unsigned int Occurencies = 0;
     for (unsigned int Index = 0; Index < strlen(filePath); Index++)
@@ -98,13 +98,13 @@ char* getOutputFileNameNoPrefix(char* filePath)
         }
     }
     outputFileName[newIndex] = 0x00;
-    char* outputFileName0 = malloc(strlen(outputFileName) + 5);
-    sprintf(outputFileName0, "./%s.h", outputFileName);
+    char* outputFileName0 = malloc(strlen(outputFileName) + strlen(Prefix) + strlen(Suffix) + 1);
+    sprintf(outputFileName0, "%s%s%s", Prefix, outputFileName, Suffix);
     free(outputFileName);
     return outputFileName0;
 }
 
-char* getOutputFileName(char* filePath, char* dirBaseName)
+char* getOutputFileName(char* filePath, char* dirBaseName, char* Prefix, char* Suffix)
 {
     unsigned int Occurencies = 0;
     for (unsigned int Index = 0; Index < strlen(filePath); Index++)
@@ -134,8 +134,8 @@ char* getOutputFileName(char* filePath, char* dirBaseName)
         }
     }
     outputFileName[newIndex] = 0x00;
-    char* outputFileName0 = malloc(strlen(outputFileName) + strlen(dirBaseName) + 10);
-    sprintf(outputFileName0, "./Out_%s/%s.h", dirBaseName, outputFileName);
+    char* outputFileName0 = malloc(strlen(outputFileName) + strlen(dirBaseName) + strlen(Prefix) + strlen(Suffix) + 2);
+    sprintf(outputFileName0, "%s%s/%s%s", Prefix, dirBaseName, outputFileName, Suffix);
     free(outputFileName);
     return outputFileName0;
 }
@@ -180,78 +180,6 @@ void writeXTFunction(FILE* outputFile, char* inputFileName, char* variableBaseNa
     fprintf(outputFile, "}\n\n");
 }
 
-void konkantezerSingle(char* inputFileName, char* Prefix)
-{
-    char* variableBaseName = getVarBaseName(inputFileName);
-    char* outputFileName = getOutputFileNameNoPrefix(inputFileName);
-
-    // Open
-    FILE* inputFile = fopen(inputFileName, "rb");
-    FILE* outputFile = fopen(outputFileName, "wb+");
-
-    if (inputFile == NULL)
-    {
-        printf("File %s doesn't exist\n", inputFileName);
-        exit(1);
-    }
-    
-    // Get file size
-    unsigned int fileSize = getOpenedFileSize(inputFile);
-
-    // Includes and declarartions
-    fprintf(outputFile, "#pragma once\n#ifndef %s_h\n#define %s_h\n\n#include <stdio.h>\n#include <stdint.h>\n\n", variableBaseName, variableBaseName);
-    
-    // Write array
-    writeArray(inputFile, outputFile, inputFileName, Prefix, variableBaseName, fileSize);    
-
-    // Write extract function
-    writeXTFunction(outputFile, inputFileName, variableBaseName, fileSize);
-
-    // Endif
-    fprintf(outputFile, "#endif /* %s_h */", variableBaseName);
-
-    free(outputFileName);
-    free(variableBaseName);
-    fclose(inputFile);
-    fclose(outputFile);
-}
-
-void Konkantezer(char* inputFileName, char* baseName, char* Prefix)
-{
-    char* variableBaseName = getVarBaseName(inputFileName);
-    char* outputFileName = getOutputFileName(inputFileName, baseName);
-
-    // Open
-    FILE* inputFile = fopen(inputFileName, "rb");
-    FILE* outputFile = fopen(outputFileName, "wb+");
-
-    if (inputFile == NULL)
-    {
-        printf("File %s doesn't exist\n", inputFileName);
-        exit(1);
-    }
-    
-    // Get file size
-    unsigned int fileSize = getOpenedFileSize(inputFile);
-
-    // Includes and declarartions
-    fprintf(outputFile, "#pragma once\n#ifndef %s_h\n#define %s_h\n\n#include <stdio.h>\n#include <stdint.h>\n\n", variableBaseName, variableBaseName);
-    
-    // Write array
-    writeArray(inputFile, outputFile, inputFileName, Prefix, variableBaseName, fileSize);    
-
-    // Write extract function
-    writeXTFunction(outputFile, inputFileName, variableBaseName, fileSize);
-
-    // Endif
-    fprintf(outputFile, "#endif /* %s_h */", variableBaseName);
-
-    free(outputFileName);
-    free(variableBaseName);
-    fclose(inputFile);
-    fclose(outputFile);
-}
-
 void writeCTFunction(FILE* outputFile, char* variableBaseName, char** dirList, char* Prefix, unsigned int directoryCount)
 {
     fprintf(outputFile, "void makeDir%s()\n{\n", variableBaseName);
@@ -279,6 +207,102 @@ void writeCTFunction(FILE* outputFile, char* variableBaseName, char** dirList, c
         printf("Embedded %s successfully!\n", dirList[Index]);
     }
     fprintf(outputFile, "}\n\n");
+}
+
+void konkantezerSingle(char* inputFileName, char* Prefix)
+{
+    printf("Konkantezing %s...\n", inputFileName);
+    char* variableBaseName = getVarBaseName(inputFileName);
+    char* outputFileName = getOutputFileNameNoBasename(inputFileName, "./", ".h");
+
+    // Open
+    FILE* inputFile = fopen(inputFileName, "rb");
+    FILE* outputFile = fopen(outputFileName, "wb+");
+
+    if (inputFile == NULL)
+    {
+        printf("File %s doesn't exist\n", inputFileName);
+        exit(1);
+    }
+
+    // Get file size
+    unsigned int fileSize = getOpenedFileSize(inputFile);
+
+    // Includes and declarartions
+    fprintf(outputFile, "#pragma once\n#ifndef %s_h\n#define %s_h\n\n#include <stdio.h>\n#include <stdint.h>\n#include <sys/stat.h>\n\n", variableBaseName, variableBaseName);
+    
+    // Write array
+    writeArray(inputFile, outputFile, inputFileName, Prefix, variableBaseName, fileSize);    
+
+    // Write directory maker
+    unsigned int subDirectoryCount = 0;
+    for (unsigned int Index = 0; Index < strlen(Prefix); Index++)
+    {
+        if (Prefix[Index] == '/' || Prefix[Index] == '\\')
+            subDirectoryCount++;
+    }
+    char** dirList = malloc(subDirectoryCount * sizeof(char*));
+    unsigned int dirCount = 0;
+    for (unsigned int Index = 0; Index < strlen(Prefix); Index++)
+    {
+        if (Prefix[Index] == '/' || Prefix[Index] == '\\')
+        {
+            dirList[dirCount] = malloc(Index * sizeof(char) + 1);
+            strncpy(dirList[dirCount], Prefix, Index);
+            dirList[dirCount][Index] = 0x00;
+            dirCount++;
+        }
+    }
+    writeCTFunction(outputFile, variableBaseName, dirList, "./", subDirectoryCount);
+
+    // Write extract function
+    writeXTFunction(outputFile, inputFileName, variableBaseName, fileSize);
+
+    // Endif
+    fprintf(outputFile, "#endif /* %s_h */", variableBaseName);
+
+    printf("Konkantezed %s...\n", inputFileName);
+
+    free(outputFileName);
+    free(variableBaseName);
+    fclose(inputFile);
+    fclose(outputFile);
+}
+
+void Konkantezer(char* inputFileName, char* baseName, char* Prefix)
+{
+    char* variableBaseName = getVarBaseName(inputFileName);
+    char* outputFileName = getOutputFileName(inputFileName, baseName, "./Out_", ".h");
+
+    // Open
+    FILE* inputFile = fopen(inputFileName, "rb");
+    FILE* outputFile = fopen(outputFileName, "wb+");
+
+    if (inputFile == NULL)
+    {
+        printf("File %s doesn't exist\n", inputFileName);
+        exit(1);
+    }
+    
+    // Get file size
+    unsigned int fileSize = getOpenedFileSize(inputFile);
+
+    // Includes and declarartions
+    fprintf(outputFile, "#pragma once\n#ifndef %s_h\n#define %s_h\n\n#include <stdio.h>\n#include <stdint.h>\n\n", variableBaseName, variableBaseName);
+    
+    // Write array
+    writeArray(inputFile, outputFile, inputFileName, Prefix, variableBaseName, fileSize);    
+
+    // Write extract function
+    writeXTFunction(outputFile, inputFileName, variableBaseName, fileSize);
+
+    // Endif
+    fprintf(outputFile, "#endif /* %s_h */", variableBaseName);
+
+    free(outputFileName);
+    free(variableBaseName);
+    fclose(inputFile);
+    fclose(outputFile);
 }
 
 void dirKonkantezer(char* dirName, char* Prefix)
@@ -316,16 +340,9 @@ void dirKonkantezer(char* dirName, char* Prefix)
     char** dirList = getAllDirectoryPaths(dirName, directoryCount);
 
     // Setup main header name
-    char* outputFileNameInterim = getOutputFileName(dirName, variableBaseName);
-    char* outputFileName = malloc(strlen(outputFileNameInterim) + 5);
+    char* outputFileNameInterim = getOutputFileName(dirName, variableBaseName, "./Out_", "main.h");
+    char* outputFileName = malloc(strlen(outputFileNameInterim) + 1);
     strcpy(outputFileName, outputFileNameInterim);
-    outputFileName[strlen(outputFileNameInterim) - 2] = 'm';
-    outputFileName[strlen(outputFileNameInterim) - 1] = 'a';
-    outputFileName[strlen(outputFileNameInterim)]     = 'i';
-    outputFileName[strlen(outputFileNameInterim) + 1] = 'n';
-    outputFileName[strlen(outputFileNameInterim) + 2] = '.';
-    outputFileName[strlen(outputFileNameInterim) + 3] = 'h';
-    outputFileName[strlen(outputFileNameInterim) + 4] = 0x00;
 
     // Extractor main
     char* XTFileName = malloc(strlen(variableBaseName) + strlen(basename(outputFileName)) + 10);
@@ -333,10 +350,8 @@ void dirKonkantezer(char* dirName, char* Prefix)
     XTFileName[strlen(XTFileName) - 1] = 'c';
     FILE* XTFile = fopen(XTFileName, "wb+");
     fprintf(XTFile, "#include \"%s\"\n\n", basename(outputFileName));
-    // Write mkdir function
-    printf("Writing directory maker function...\n");
-    writeCTFunction(XTFile, variableBaseName, dirList, Prefix, (*directoryCount));
-    printf("Wrote directory maker function successfully!\n");
+
+    // Call functions
     fprintf(XTFile, "int main()\n{\n\tmakeDir%s();\n\textract%s();\n\tprintf(\"Press any key to exit...\");\n\tgetchar();\n\treturn 0;\n}", variableBaseName, variableBaseName);  
     fclose(XTFile);
 
@@ -346,6 +361,11 @@ void dirKonkantezer(char* dirName, char* Prefix)
     // Includes and declarartions
     fprintf(outputFile, "#pragma once\n#ifndef %s_h\n#define %s_h\n\n#include <stdio.h>\n#include <stdint.h>\n#include <sys/stat.h>\n\n", variableBaseName, variableBaseName);
 
+    // Write directory maker
+    printf("Writing directory maker function...\n");
+    writeCTFunction(outputFile, variableBaseName, dirList, Prefix, (*directoryCount));
+    printf("Wrote directory maker function successfully!\n");
+    
     // Write file declares
     printf("Declaring sub-extractors...\n");
     for (unsigned int Index = 0; Index < (*fileCount); Index++)
@@ -390,7 +410,7 @@ void dirKonkantezer(char* dirName, char* Prefix)
 
         // Include
         printf("Including %s...\n", fileList[Index]);
-        char* currentHeaderFileName = getOutputFileName(fileList[Index], variableBaseName);
+        char* currentHeaderFileName = getOutputFileName(fileList[Index], variableBaseName, "./Out_", ".h");
         fprintf(currentXTFile, "#include \"%s\"\n", basename(currentHeaderFileName));
         printf("Included %s successfully!\n", fileList[Index]);
         totalIncludedSize += getFileSize(fileList[Index]);

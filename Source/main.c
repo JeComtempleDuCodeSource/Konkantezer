@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
         char* elementName = argv[1];
         char* extractDir = argv[2];
         printf("KONKANTEZER Version: %i.%i\n", Konkantezer_VERSION_MAJOR, Konkantezer_VERSION_MINOR);
-        printf("Report issues at \"https://github.com/JeComtempleDuCodeSource/Kokankantezer\"\n");
+        printf("Report issues at \"https://github.com/JeComtempleDuCodeSource/Konkantezer\"\n");
         printf("Ensure that %s is a valid path!\n", extractDir);
         if (isDirectory(elementName))
         {
@@ -35,6 +35,13 @@ int main(int argc, char* argv[])
         }
         else if (isRegularFile(elementName))
         {
+            unsigned int extractDirLength = strlen(extractDir);
+            if (extractDir[extractDirLength - 1] != '\\' || extractDir[extractDirLength - 1] != '/')
+            {
+                extractDir = realloc(extractDir, strlen(extractDir) + 2);
+                extractDir[extractDirLength] = '/';
+                extractDir[extractDirLength + 1] = 0x00;
+            }
             konkantezerSingle(elementName, extractDir);
         }
         else 

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Set the project name and version
-project(Konkantezer VERSION 0.8)
+project(Konkantezer VERSION 0.9)
 
 # Configure version
 configure_file(CMake.h.in CMake.h)

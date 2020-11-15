@@ -20,10 +20,10 @@ unsigned int getOpenedFileSize(FILE* File);
 char* getVarBaseName(char* filePath);
 
 // Gives output file name without prefix
-char* getOutputFileNameNoPrefix(char* filePath);
+char* getOutputFileNameNoBasename(char* filePath, char* Prefix, char* Suffix);
 
 // Gives output file name with prefix
-char* getOutputFileName(char* filePath, char* dirBaseName);
+char* getOutputFileName(char* filePath, char* dirBaseName, char* Prefix, char* Suffix);
 
 // Write file
 void writeArray(FILE* inputFile, FILE* outputFile, char* inputFileName, char* Prefix, char* variableBaseName, unsigned int fileSize);
