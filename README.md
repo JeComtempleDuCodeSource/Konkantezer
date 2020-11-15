@@ -21,7 +21,7 @@ Konkantezer [directory_name] [extract_directory]```
 ##### From there you can either include the .h files etc...(like said in the few lines up) or you can compile individually the XT[original_directory_name].c files and link them to get an automatic extractor.
 
 ## Build:
-* For building you'll need git, cmake, and a compiler of course and once you get that simply run:\
+* For building you'll need git, cmake, and a compiler of course(clang, gcc, mingw-w64 or tdm-gcc should work) and once you get that simply run:\
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     git clone "https://github.com/JeComtempleDuCodeSource/Konkantezer"``` \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
