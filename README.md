@@ -6,7 +6,6 @@ It can also create ready to be compiled C source to extract directories very hel
 * Comment code: On going! 
 * Selectable maximum size of .c parts: Soon! 
 * Pairing with compression: With my Treemer program i'll try to do something. 
-* Fix error where file cannot be extracted because directory has to been created. 
 
 ## Use 
 * "Konkantize" a file: \
