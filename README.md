@@ -28,7 +28,7 @@ Konkantezer [directory_name] [extract_directory]```
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     cd "./Konkantezer/Source"```
 
-* If you're on windows and using mingw: 
+* If you're on windows and using mingw:\
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     cmake -G"MinGW Makefiles" -B"./build" -S"./"``` 
 
@@ -38,7 +38,7 @@ Konkantezer [directory_name] [extract_directory]```
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     mingw32-make``` 
 
-* If not just: 
+* If not just:\
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     cmake -B"./build -S./"``` 
 
