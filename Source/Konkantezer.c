@@ -221,7 +221,9 @@ void konkantezerSingle(char* inputFileName, char* Prefix)
 
     if (inputFile == NULL)
     {
-        printf("File %s doesn't exist\n", inputFileName);
+        char* errorMessage = malloc(strlen(inputFileName) + 21);
+        sprintf(errorMessage, "File %s doesn't exist\n", inputFileName);
+        perror(errorMessage);
         exit(1);
     }
 
@@ -280,7 +282,9 @@ void Konkantezer(char* inputFileName, char* baseName, char* Prefix)
 
     if (inputFile == NULL)
     {
-        printf("File %s doesn't exist\n", inputFileName);
+        char* errorMessage = malloc(strlen(inputFileName) + 21);
+        sprintf(errorMessage, "File %s doesn't exist\n", inputFileName);
+        perror(errorMessage);
         exit(1);
     }
     

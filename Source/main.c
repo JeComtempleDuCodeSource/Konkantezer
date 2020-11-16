@@ -9,8 +9,8 @@ int main(int argc, char* argv[])
         printf("KONKANTEZER Version: %i.%i\n", Konkantezer_VERSION_MAJOR, Konkantezer_VERSION_MINOR);
         printf("Report issues at \"https://github.com/JeComtempleDuCodeSource/Kokankantezer\"\n");
         printf("Usage:\n\t%s [FILE_PATH|DIRECTORY_PATH] [EXTRACT_DIR]\n", argv[0]);
-        printf("\tFILE_PATH: outputs a .h file.\n");
-        printf("\tDIRECTORY_PATH: outputs .h file of all file in the specified directory and .c file that includes .h files.\n");
+        printf("\tFILE_PATH: outputs a .h file\n");
+        printf("\tDIRECTORY_PATH: outputs .h file of all file in the specified directory and .c file that includes .h files\n");
         printf("\tEXTRACT_DIR: output directory when extracted enter ./ to default.\n");
         return 1;
     }
@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
         }
         else 
         {
-            printf("%s is not valid path.\n", elementName);
+            perror("%s is not valid path.\n", elementName);
         }
         free(elementName);
         free(extractDir);
