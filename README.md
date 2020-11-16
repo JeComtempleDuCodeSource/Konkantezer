@@ -7,7 +7,7 @@ It can also create ready to be compiled C source to extract directories, very he
 ## TO DO
 * Comment code: On going! 
 * Selectable maximum size of .c parts: Soon! 
-* Pairing with compression: With my Treemer program i'll try to do something. 
+* Pairing with compression: With the Treemer program i'll try to do something. 
 * Colored output with the help of Prisma.h.
 
 ## Use 
@@ -21,7 +21,7 @@ Konkantezer [file_name] [extract_directory]```
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
 Konkantezer [directory_name] [extract_directory]```
 
-##### From there you can either include the .h files etc...(like said in the few lines up) or you can compile individually the XT[original_directory_name].c files and link them to get an automatic extractor.
+##### From there you can either include the .h files etc...(like said in the few lines up) or you can compile individually the XT[original_directory_name]_[part_number].c files, link them with XT[original_directory_name]main.c to get an automatic extractor or include the [original_directory_name]main.h header, call the makedir and extract function from your own program and don't forget to link them.
 
 ## Build:
 * For building you'll need git, cmake, and a compiler of course(clang, gcc, mingw-w64 or tdm-gcc should work) and once you get that simply run:\
@@ -44,3 +44,5 @@ Konkantezer [directory_name] [extract_directory]```
     cd "./build"``` \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     make``` 
+
+*  Instead of running these command manually you can also run them automatically with the "auto-build[compiler_name].sh/.cmd" files
