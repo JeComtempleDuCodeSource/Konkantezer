@@ -11,6 +11,7 @@ add_executable(Konkantezer
                 main.c
                 Konkantezer.c
                 directScanUtil.c
+		Konkantezer.rc
 )
 
 # Flags
