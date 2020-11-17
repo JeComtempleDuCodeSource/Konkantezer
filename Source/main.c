@@ -1,5 +1,5 @@
 #include <CMake.h>
-
+#include <time.h>
 #include "Konkantezer.h"
 
 int main(int argc, char* argv[]) 
@@ -21,6 +21,10 @@ int main(int argc, char* argv[])
         printf("KONKANTEZER Version: %i.%i\n", Konkantezer_VERSION_MAJOR, Konkantezer_VERSION_MINOR);
         printf("Report issues at \"https://github.com/JeComtempleDuCodeSource/Konkantezer\"\n");
         printf("Ensure that %s is a valid path!\n", extractDir);
+
+        clock_t Start, End;
+        float elapsedSeconds;
+        Start = clock();
         if (isDirectory(elementName))
         {
             // Add / at end of directory name if there isn't
@@ -50,6 +54,9 @@ int main(int argc, char* argv[])
             sprintf(errorMessage, "%s is not valid path.\n", elementName);
             perror(errorMessage);
         }
+        End = clock();
+        elapsedSeconds = ((float)(End - Start)) / CLOCKS_PER_SEC;
+        printf("Konkantization duration: %f (seconds)\n", elapsedSeconds);
         free(elementName);
         free(extractDir);
     }
