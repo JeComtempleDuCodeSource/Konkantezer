@@ -6,14 +6,22 @@ project(Konkantezer VERSION 0.9)
 # Configure version
 configure_file(CMake.h.in CMake.h)
 
-# Add the executable
+# Add the executable and icon if windows
+if (WIN32)
 add_executable(Konkantezer 
                 main.c
                 Konkantezer.c
                 directScanUtil.c
 		Konkantezer.rc
 )
-
+# If not windows
+else()
+add_executable(Konkantezer 
+                main.c
+                Konkantezer.c
+                directScanUtil.c
+)
+endif()
 # Flags
 target_compile_options(Konkantezer PUBLIC "-Wall" "-O2")
 
