@@ -46,7 +46,9 @@ int main(int argc, char* argv[])
         }
         else 
         {
-            perror("%s is not valid path.\n", elementName);
+            char* errorMessage = malloc(strlen(elementName) + 21);
+            sprintf(errorMessage, "%s is not valid path.\n", elementName);
+            perror(errorMessage);
         }
         free(elementName);
         free(extractDir);
