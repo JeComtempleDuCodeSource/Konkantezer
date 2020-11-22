@@ -1,5 +1,5 @@
 # Konkantezer
-![Konkantezer LOGO](/Source/Konkantezer256x256.bmp) 
+![Konkantezer LOGO](/Source/KKTZ256x256.bmp) 
 \
 Simple C program that helps you create an C array to embed any file in to your C/C++ code. \
 It can also create ready to be compiled C source to extract directories, very helpful if you don't want to ship your program in a .zip or .tar.gz/bz2/xz.
