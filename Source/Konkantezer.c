@@ -61,7 +61,7 @@ char* getVarBaseName(char* filePath)
     if (isdigit(varName[0]) != 0)
     {
         char* varName0 = malloc(strlen(varName) + 4);
-        sprintf(varName0, "Var%s", varName);
+        sprintf_s(varName0, (strlen(varName) + 4), "Var%s", varName);
         free(varName);
         return varName0;
     }
@@ -99,7 +99,7 @@ char* getOutputFileNameNoBasename(char* filePath, char* Prefix, char* Suffix)
     }
     outputFileName[newIndex] = 0x00;
     char* outputFileName0 = malloc(strlen(outputFileName) + strlen(Prefix) + strlen(Suffix) + 1);
-    sprintf(outputFileName0, "%s%s%s", Prefix, outputFileName, Suffix);
+    sprintf_s(outputFileName0, (strlen(outputFileName) + strlen(Prefix) + strlen(Suffix) + 1), "%s%s%s", Prefix, outputFileName, Suffix);
     free(outputFileName);
     return outputFileName0;
 }
@@ -135,7 +135,7 @@ char* getOutputFileName(char* filePath, char* dirBaseName, char* Prefix, char* S
     }
     outputFileName[newIndex] = 0x00;
     char* outputFileName0 = malloc(strlen(outputFileName) + strlen(dirBaseName) + strlen(Prefix) + strlen(Suffix) + 2);
-    sprintf(outputFileName0, "%s%s/%s%s", Prefix, dirBaseName, outputFileName, Suffix);
+    sprintf_s(outputFileName0, (strlen(outputFileName) + strlen(dirBaseName) + strlen(Prefix) + strlen(Suffix) + 2), "%s%s/%s%s", Prefix, dirBaseName, outputFileName, Suffix);
     free(outputFileName);
     return outputFileName0;
 }
@@ -222,7 +222,7 @@ void konkantezerSingle(char* inputFileName, char* Prefix)
     if (inputFile == NULL)
     {
         char* errorMessage = malloc(strlen(inputFileName) + 21);
-        sprintf(errorMessage, "File %s doesn't exist\n", inputFileName);
+        sprintf_s(errorMessage, strlen(inputFileName) + 21, "File %s doesn't exist\n", inputFileName);
         perror(errorMessage);
         exit(1);
     }
@@ -250,7 +250,7 @@ void konkantezerSingle(char* inputFileName, char* Prefix)
         if (Prefix[Index] == '/' || Prefix[Index] == '\\')
         {
             dirList[dirCount] = malloc(Index * sizeof(char) + 1);
-            strncpy(dirList[dirCount], Prefix, Index);
+            strncpy_s(dirList[dirCount], (Index * sizeof(char) + 1), Prefix, Index);
             dirList[dirCount][Index] = 0x00;
             dirCount++;
         }
@@ -283,7 +283,7 @@ void Konkantezer(char* inputFileName, char* baseName, char* Prefix)
     if (inputFile == NULL)
     {
         char* errorMessage = malloc(strlen(inputFileName) + 21);
-        sprintf(errorMessage, "File %s doesn't exist\n", inputFileName);
+        sprintf_s(errorMessage, (strlen(inputFileName) + 21), "File %s doesn't exist\n", inputFileName);
         perror(errorMessage);
         exit(1);
     }
@@ -315,7 +315,7 @@ void dirKonkantezer(char* dirName, char* Prefix)
     // Setting up names and output directory
     char* variableBaseName = getVarBaseName(dirName);
     char* outDirName = malloc(strlen(variableBaseName) + 7);
-    sprintf(outDirName, "./Out_%s", variableBaseName);
+    sprintf_s(outDirName, (strlen(variableBaseName) + 7), "./Out_%s", variableBaseName);
 #ifdef _WIN32
     mkdir(outDirName);
 #elif __linux__
@@ -346,11 +346,11 @@ void dirKonkantezer(char* dirName, char* Prefix)
     // Setup main header name
     char* outputFileNameInterim = getOutputFileName(dirName, variableBaseName, "./Out_", "main.h");
     char* outputFileName = malloc(strlen(outputFileNameInterim) + 1);
-    strcpy(outputFileName, outputFileNameInterim);
+    strcpy_s(outputFileName, (strlen(outputFileNameInterim) + 1), outputFileNameInterim);
 
     // Extractor main
     char* XTFileName = malloc(strlen(variableBaseName) + strlen(basename(outputFileName)) + 10);
-    sprintf(XTFileName, "./Out_%s/XT%s", variableBaseName, basename(outputFileName));
+    sprintf_s(XTFileName, (strlen(variableBaseName) + strlen(basename(outputFileName)) + 10), "./Out_%s/XT%s", variableBaseName, basename(outputFileName));
     XTFileName[strlen(XTFileName) - 1] = 'c';
     FILE* XTFile = fopen(XTFileName, "wb+");
     fprintf(XTFile, "#include \"%s\"\n\n", basename(outputFileName));
@@ -407,9 +407,9 @@ void dirKonkantezer(char* dirName, char* Prefix)
         // Get file to write to
         char* currentXTFileName = malloc(strlen(outDirName) + 3 + strlen(variableBaseName) + 6);
         if (XTFileCount < 10)
-            sprintf(currentXTFileName, "%s/XT%s_0%i.c", outDirName, variableBaseName, XTFileCount);
+            sprintf_s(currentXTFileName, (strlen(outDirName) + 3 + strlen(variableBaseName) + 6), "%s/XT%s_0%i.c", outDirName, variableBaseName, XTFileCount);
         else if (XTFileCount >= 10)
-            sprintf(currentXTFileName, "%s/XT%s_%i.c", outDirName, variableBaseName, XTFileCount);
+            sprintf_s(currentXTFileName, (strlen(outDirName) + 3 + strlen(variableBaseName) + 6), "%s/XT%s_%i.c", outDirName, variableBaseName, XTFileCount);
         FILE* currentXTFile = fopen(currentXTFileName, "a+");
 
         // Include
@@ -420,7 +420,7 @@ void dirKonkantezer(char* dirName, char* Prefix)
         totalIncludedSize += getFileSize(fileList[Index]);
         if ((Index + 1) < (*fileCount))
         {
-            if ((totalIncludedSize + getFileSize(fileList[Index + 1])) >= 104857600)
+            if ((totalIncludedSize + getFileSize(fileList[Index + 1])) >= OBJECT_BLOCK_SIZE)
             {
                 totalIncludedSize = 0;
                 XTFileCount++;
