@@ -163,7 +163,6 @@ void writeArray(FILE* inputFile, FILE* outputFile, char* inputFileName, char* Pr
         if(byteCount % 10 == 0) 
             fprintf(outputFile, "\n\t");
     }
-    fclose(inputFile);
 
     // End
     fprintf(outputFile, "};\n\n");
