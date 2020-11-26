@@ -34,7 +34,7 @@ void printScanDirectory(char* Path)
             if (strcmp(Entries->d_name, ".") != 0 && strcmp(Entries->d_name, "..") != 0)
             {
                 char* fullPath = (char*)malloc(strlen(Path) + strlen(Entries->d_name) + 1);
-                sprintf_s(fullPath, (strlen(Path) + strlen(Entries->d_name) + 1), "%s%s", Path, Entries->d_name);
+                snprintf(fullPath, (strlen(Path) + strlen(Entries->d_name) + 1), "%s%s", Path, Entries->d_name);
                 if (isRegularFile(fullPath))
                 {
                     printf("<FILE>: %s\n", fullPath);
@@ -45,7 +45,7 @@ void printScanDirectory(char* Path)
                     if (isDirectory(Path))
                     {
                         char* directoryPath = (char*)malloc(strlen(Path) + strlen(Entries->d_name) + 2);
-                        sprintf_s(directoryPath, strlen(Path) + strlen(Entries->d_name) + 2, "%s%s/", Path, Entries->d_name);
+                        snprintf(directoryPath, strlen(Path) + strlen(Entries->d_name) + 2, "%s%s/", Path, Entries->d_name);
                         printScanDirectory(directoryPath);
                         free(directoryPath);
                     }
@@ -73,7 +73,7 @@ unsigned int getFileCount(char* Path)
             if (strcmp(Entries->d_name, ".") != 0 && strcmp(Entries->d_name, "..") != 0)
             {
                 char* fullPath = (char*)malloc(strlen(Path) + strlen(Entries->d_name) + 1);
-                sprintf_s(fullPath, (strlen(Path) + strlen(Entries->d_name) + 1), "%s%s", Path, Entries->d_name);
+                snprintf(fullPath, (strlen(Path) + strlen(Entries->d_name) + 1), "%s%s", Path, Entries->d_name);
                 if (isRegularFile(fullPath))
                 {
                     elementCount++;
@@ -81,7 +81,7 @@ unsigned int getFileCount(char* Path)
                 else if (isDirectory(Path))
                 {
                     char* directoryPath = (char*)malloc(strlen(Path) + strlen(Entries->d_name) + 2);
-                    sprintf_s(directoryPath, (strlen(Path) + strlen(Entries->d_name) + 2), "%s%s/", Path, Entries->d_name);
+                    snprintf(directoryPath, (strlen(Path) + strlen(Entries->d_name) + 2), "%s%s/", Path, Entries->d_name);
                     elementCount += getFileCount(directoryPath);
                     free(directoryPath);
                 }
@@ -105,17 +105,17 @@ void getAllFilePathRecursion(char* Path, unsigned int* fileIndex, char** fileNam
             if (strcmp(Entries->d_name, ".") != 0 && strcmp(Entries->d_name, "..") != 0)
             {
                 char* fullPath = (char*)malloc(strlen(Path) + strlen(Entries->d_name) + 1);
-                sprintf_s(fullPath, (strlen(Path) + strlen(Entries->d_name) + 1), "%s%s", Path, Entries->d_name);
+                snprintf(fullPath, (strlen(Path) + strlen(Entries->d_name) + 1), "%s%s", Path, Entries->d_name);
                 if (isRegularFile(fullPath))
                 {
                     (*fileIndex)++;
-                    fileNames[(*fileIndex) - 1] = (char*)malloc((strlen(fullPath) * sizeof(char)) + 1);
-                    strcpy_s(fileNames[(*fileIndex) - 1], ((strlen(fullPath) * sizeof(char)) + 1), fullPath);
+                    fileNames[(*fileIndex) - 1] = (char*)malloc(strlen(fullPath) + 1);
+                    strncpy(fileNames[(*fileIndex) - 1], fullPath, strlen(fullPath) + 1);
                 }
                 else if (isDirectory(Path))
                 {
                     char* directoryPath = (char*)malloc(strlen(Path) + strlen(Entries->d_name) + 2);
-                    sprintf_s(directoryPath, (strlen(Path) + strlen(Entries->d_name) + 2), "%s%s/", Path, Entries->d_name);
+                    snprintf(directoryPath, (strlen(Path) + strlen(Entries->d_name) + 2), "%s%s/", Path, Entries->d_name);
                     getAllFilePathRecursion(directoryPath, fileIndex, fileNames);
                     free(directoryPath);
                 }
@@ -139,17 +139,17 @@ char** getAllFilePaths(char* Path, unsigned int* fileIndex)
             if (strcmp(Entries->d_name, ".") != 0 && strcmp(Entries->d_name, "..") != 0)
             {
                 char* fullPath = (char*)malloc(strlen(Path) + strlen(Entries->d_name) + 1);
-                sprintf_s(fullPath, (strlen(Path) + strlen(Entries->d_name) + 1), "%s%s", Path, Entries->d_name);
+                snprintf(fullPath, (strlen(Path) + strlen(Entries->d_name) + 1), "%s%s", Path, Entries->d_name);
                 if (isRegularFile(fullPath))
                 {
                     (*fileIndex)++;
-                    fileNames[(*fileIndex) - 1] = (char*)malloc((strlen(fullPath) * sizeof(char)) + 1);
-                    strcpy_s(fileNames[(*fileIndex) - 1], ((strlen(fullPath) * sizeof(char)) + 1), fullPath);
+                    fileNames[(*fileIndex) - 1] = (char*)malloc(strlen(fullPath) + 1);
+                    strncpy(fileNames[(*fileIndex) - 1], fullPath, (strlen(fullPath) + 1));
                 }
                 else if (isDirectory(Path))
                 {
                     char* directoryPath = (char*)malloc(strlen(Path) + strlen(Entries->d_name) + 2);
-                    sprintf_s(directoryPath, (strlen(Path) + strlen(Entries->d_name) + 2), "%s%s/", Path, Entries->d_name);
+                    snprintf(directoryPath, (strlen(Path) + strlen(Entries->d_name) + 2), "%s%s/", Path, Entries->d_name);
                     getAllFilePathRecursion(directoryPath, fileIndex, fileNames);
                     free(directoryPath);
                 }
@@ -176,12 +176,12 @@ unsigned int getDirectoryCount(char* Path, bool Recursive)
             if (strcmp(Entries->d_name, ".") != 0 && strcmp(Entries->d_name, "..") != 0)
             {
                 char* fullPath = (char*)malloc(strlen(Path) + strlen(Entries->d_name) + 1);
-                sprintf_s(fullPath, (strlen(Path) + strlen(Entries->d_name) + 1), "%s%s", Path, Entries->d_name);
+                snprintf(fullPath, (strlen(Path) + strlen(Entries->d_name) + 1), "%s%s", Path, Entries->d_name);
                 if (isDirectory(fullPath))
                 {
                     elementCount++;
                     char* directoryPath = (char*)malloc(strlen(Path) + strlen(Entries->d_name) + 2);
-                    sprintf_s(directoryPath, (strlen(Path) + strlen(Entries->d_name) + 2), "%s%s/", Path, Entries->d_name);
+                    snprintf(directoryPath, (strlen(Path) + strlen(Entries->d_name) + 2), "%s%s/", Path, Entries->d_name);
                     elementCount += getDirectoryCount(directoryPath, true);
                     free(directoryPath);
                 }
@@ -205,14 +205,14 @@ void getAllDirectoryPathRecursion(char* Path, unsigned int* directoryIndex, char
             if (strcmp(Entries->d_name, ".") != 0 && strcmp(Entries->d_name, "..") != 0)
             {
                 char* fullPath = (char*)malloc(strlen(Path) + strlen(Entries->d_name) + 1);
-                sprintf_s(fullPath, (strlen(Path) + strlen(Entries->d_name) + 1), "%s%s", Path, Entries->d_name);
+                snprintf(fullPath, (strlen(Path) + strlen(Entries->d_name) + 1), "%s%s", Path, Entries->d_name);
                 if (isDirectory(fullPath))
                 {
                     (*directoryIndex)++;
-                    directoryNames[(*directoryIndex) - 1] = (char*)malloc((strlen(fullPath) * sizeof(char)) + 1);
-                    strcpy_s(directoryNames[(*directoryIndex) - 1], strlen(fullPath) * sizeof(char) + 1, fullPath);
+                    directoryNames[(*directoryIndex) - 1] = (char*)malloc(strlen(fullPath) + 1);
+                    strncpy(directoryNames[(*directoryIndex) - 1], fullPath, strlen(fullPath) + 1);
                     char* directoryPath = (char*)malloc(strlen(Path) + strlen(Entries->d_name) + 2);
-                    sprintf_s(directoryPath, (strlen(Path) + strlen(Entries->d_name) + 2), "%s%s/", Path, Entries->d_name);
+                    snprintf(directoryPath, (strlen(Path) + strlen(Entries->d_name) + 2), "%s%s/", Path, Entries->d_name);
                     getAllDirectoryPathRecursion(directoryPath, directoryIndex, directoryNames);
                     free(directoryPath);
                 }
@@ -228,7 +228,7 @@ char** getAllDirectoryPaths(char* Path, unsigned int* directoryIndex)
 {
     char** directoryNames = (char**)malloc(getDirectoryCount(Path, false) * sizeof(char*));
     directoryNames[0] = (char*)malloc(strlen(Path) + 1);
-    strcpy_s(directoryNames[0], (strlen(Path) + 1), Path);
+    strncpy(directoryNames[0], Path, (strlen(Path) + 1));
     (*directoryIndex)++;
     DIR* Directory;
     struct dirent* Entries;
@@ -239,14 +239,14 @@ char** getAllDirectoryPaths(char* Path, unsigned int* directoryIndex)
             if (strcmp(Entries->d_name, ".") != 0 && strcmp(Entries->d_name, "..") != 0)
             {
                 char* fullPath = (char*)malloc(strlen(Path) + strlen(Entries->d_name) + 1);
-                sprintf_s(fullPath, (strlen(Path) + strlen(Entries->d_name) + 1), "%s%s", Path, Entries->d_name);
+                snprintf(fullPath, (strlen(Path) + strlen(Entries->d_name) + 1), "%s%s", Path, Entries->d_name);
                 if (isDirectory(fullPath))
                 {
                     (*directoryIndex)++;
-                    directoryNames[(*directoryIndex) - 1] = (char*)malloc((strlen(fullPath) * sizeof(char)) + 1);
-                    strcpy_s(directoryNames[(*directoryIndex) - 1], ((strlen(fullPath) * sizeof(char)) + 1), fullPath);
+                    directoryNames[(*directoryIndex) - 1] = (char*)malloc(strlen(fullPath) + 1);
+                    strncpy(directoryNames[(*directoryIndex) - 1], fullPath, (strlen(fullPath) + 1));
                     char* directoryPath = (char*)malloc(strlen(Path) + strlen(Entries->d_name) + 2);
-                    sprintf_s(directoryPath, (strlen(Path) + strlen(Entries->d_name) + 2), "%s%s/", Path, Entries->d_name);
+                    snprintf(directoryPath, (strlen(Path) + strlen(Entries->d_name) + 2), "%s%s/", Path, Entries->d_name);
                     getAllDirectoryPathRecursion(directoryPath, directoryIndex, directoryNames);
                     free(directoryPath);
                 }

@@ -32,22 +32,24 @@ int main(int argc, char* argv[])
             char* slashEndingElementName = malloc(elementNameLength + 2);
             if (elementName[elementNameLength - 1] != '\\' && elementName[elementNameLength - 1] != '/')
             {
-                strcpy_s(slashEndingElementName, (elementNameLength + 2), elementName);
+                strncpy(slashEndingElementName, elementName, (elementNameLength + 1));
                 slashEndingElementName[elementNameLength] = '/';
                 slashEndingElementName[elementNameLength + 1] = '\0';
             }
-            else slashEndingElementName = elementName;
+            else strncpy(slashEndingElementName, elementName, (elementNameLength + 2));
 
             unsigned int extractDirNameLength = strlen(extractDir);
             char* slashEndingExtractDirName = malloc(extractDirNameLength + 2);
             if (extractDir[extractDirNameLength - 1] != '\\' && extractDir[extractDirNameLength - 1] != '/')
             {
-                strcpy_s(slashEndingExtractDirName, (extractDirNameLength + 2), extractDir);
+                strncpy(slashEndingExtractDirName, extractDir, (extractDirNameLength + 1));
                 slashEndingExtractDirName[extractDirNameLength] = '/';
                 slashEndingExtractDirName[extractDirNameLength + 1] = '\0';
             }
-            else slashEndingExtractDirName = extractDir;
+            else strncpy(slashEndingExtractDirName, extractDir, (extractDirNameLength + 2));
             dirKonkantezer(slashEndingElementName, slashEndingExtractDirName);
+            free(slashEndingElementName);
+            free(slashEndingExtractDirName);
         }
         else if (isRegularFile(elementName))
         {
@@ -55,17 +57,18 @@ int main(int argc, char* argv[])
             char* slashEndingExtractDirName = malloc(extractDirNameLength + 2);
             if (extractDir[extractDirNameLength - 1] != '\\' && extractDir[extractDirNameLength - 1] != '/')
             {
-                strcpy_s(slashEndingExtractDirName, (extractDirNameLength + 2), extractDir);
+                strncpy(slashEndingExtractDirName, extractDir, (extractDirNameLength + 1));
                 slashEndingExtractDirName[extractDirNameLength] = '/';
                 slashEndingExtractDirName[extractDirNameLength + 1] = '\0';
             }
-            else slashEndingExtractDirName = extractDir;
+            else strncpy(slashEndingExtractDirName, extractDir, (extractDirNameLength + 2));
             konkantezerSingle(elementName, slashEndingExtractDirName);
+            free(slashEndingExtractDirName);
         }
         else 
         {
             char* errorMessage = malloc(strlen(elementName) + 21);
-            sprintf_s(errorMessage, (strlen(elementName) + 21), "%s is not valid path.\n", elementName);
+            snprintf(errorMessage, (strlen(elementName) + 21), "%s is not valid path.\n", elementName);
             perror(errorMessage);
         }
         End = clock();
