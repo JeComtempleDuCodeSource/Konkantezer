@@ -1,2 +1,3 @@
 #define Konkantezer_VERSION_MAJOR @Konkantezer_VERSION_MAJOR@
 #define Konkantezer_VERSION_MINOR @Konkantezer_VERSION_MINOR@
+#define Konkantezer_VERSION_PATCH @Konkantezer_VERSION_PATCH@

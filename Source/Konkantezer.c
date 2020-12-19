@@ -61,7 +61,7 @@ char* getVarBaseName(char* filePath)
     if (isdigit(varName[0]) != 0)
     {
         char* varName0 = malloc(strlen(varName) + 4);
-        snprintf(varName0, (strlen(varName) + 4), "Var%s", varName);
+        sprintf(varName0, "Var%s", varName);
         free(varName);
         return varName0;
     }
@@ -99,7 +99,7 @@ char* getOutputFileNameNoBasename(char* filePath, char* Prefix, char* Suffix)
     }
     outputFileName[newIndex] = 0x00;
     char* outputFileName0 = malloc(strlen(outputFileName) + strlen(Prefix) + strlen(Suffix) + 1);
-    snprintf(outputFileName0, (strlen(outputFileName) + strlen(Prefix) + strlen(Suffix) + 1), "%s%s%s", Prefix, outputFileName, Suffix);
+    sprintf(outputFileName0, "%s%s%s", Prefix, outputFileName, Suffix);
     free(outputFileName);
     return outputFileName0;
 }
@@ -135,7 +135,7 @@ char* getOutputFileName(char* filePath, char* dirBaseName, char* Prefix, char* S
     }
     outputFileName[newIndex] = 0x00;
     char* outputFileName0 = malloc(strlen(outputFileName) + strlen(dirBaseName) + strlen(Prefix) + strlen(Suffix) + 2);
-    snprintf(outputFileName0, (strlen(outputFileName) + strlen(dirBaseName) + strlen(Prefix) + strlen(Suffix) + 2), "%s%s/%s%s", Prefix, dirBaseName, outputFileName, Suffix);
+    sprintf(outputFileName0, "%s%s/%s%s", Prefix, dirBaseName, outputFileName, Suffix);
     free(outputFileName);
     return outputFileName0;
 }
@@ -221,7 +221,7 @@ void konkantezerSingle(char* inputFileName, char* Prefix)
     if (inputFile == NULL)
     {
         char* errorMessage = malloc(strlen(inputFileName) + 21);
-        snprintf(errorMessage, strlen(inputFileName) + 21, "File %s doesn't exist\n", inputFileName);
+        sprintf(errorMessage, "File %s doesn't exist\n", inputFileName);
         perror(errorMessage);
         exit(1);
     }
@@ -232,6 +232,9 @@ void konkantezerSingle(char* inputFileName, char* Prefix)
     // Includes and declarartions
     fprintf(outputFile, "#pragma once\n#ifndef %s_h\n#define %s_h\n\n#include <stdio.h>\n#include <stdint.h>\n#include <sys/stat.h>\n\n", variableBaseName, variableBaseName);
     
+    // Write help
+    fprintf(outputFile, "// File generated automatically by KONKANTEZER\n");
+
     // Write array
     writeArray(inputFile, outputFile, inputFileName, Prefix, variableBaseName, fileSize);    
 
@@ -282,7 +285,7 @@ void Konkantezer(char* inputFileName, char* baseName, char* Prefix)
     if (inputFile == NULL)
     {
         char* errorMessage = malloc(strlen(inputFileName) + 21);
-        snprintf(errorMessage, (strlen(inputFileName) + 21), "File %s doesn't exist\n", inputFileName);
+        sprintf(errorMessage, "File %s doesn't exist\n", inputFileName);
         perror(errorMessage);
         exit(1);
     }
@@ -293,6 +296,9 @@ void Konkantezer(char* inputFileName, char* baseName, char* Prefix)
     // Includes and declarartions
     fprintf(outputFile, "#pragma once\n#ifndef %s_h\n#define %s_h\n\n#include <stdio.h>\n#include <stdint.h>\n\n", variableBaseName, variableBaseName);
     
+    // Write help
+    fprintf(outputFile, "// File generated automatically by KONKANTEZER\n");
+
     // Write array
     writeArray(inputFile, outputFile, inputFileName, Prefix, variableBaseName, fileSize);    
 
@@ -314,7 +320,7 @@ void dirKonkantezer(char* dirName, char* Prefix)
     // Setting up names and output directory
     char* variableBaseName = getVarBaseName(dirName);
     char* outDirName = malloc(strlen(variableBaseName) + 7);
-    snprintf(outDirName, (strlen(variableBaseName) + 7), "./Out_%s", variableBaseName);
+    sprintf(outDirName, "./Out_%s", variableBaseName);
 #ifdef _WIN32
     mkdir(outDirName);
 #elif __linux__
@@ -343,14 +349,18 @@ void dirKonkantezer(char* dirName, char* Prefix)
     // Setup main header name
     char* outputFileNameInterim = getOutputFileName(dirName, variableBaseName, "./Out_", "main.h");
     char* outputFileName = malloc(strlen(outputFileNameInterim) + 1);
-    strncpy(outputFileName, outputFileNameInterim, (strlen(outputFileNameInterim) + 1));
+    strcpy(outputFileName, outputFileNameInterim);
 
     // Extractor main
     char* XTFileName = malloc(strlen(variableBaseName) + strlen(basename(outputFileName)) + 10);
-    snprintf(XTFileName, (strlen(variableBaseName) + strlen(basename(outputFileName)) + 10), "./Out_%s/XT%s", variableBaseName, basename(outputFileName));
+    sprintf(XTFileName, "./Out_%s/XT%s", variableBaseName, basename(outputFileName));
     XTFileName[strlen(XTFileName) - 1] = 'c';
     FILE* XTFile = fopen(XTFileName, "wb+");
     fprintf(XTFile, "#include \"%s\"\n\n", basename(outputFileName));
+
+    // Write help
+    fprintf(XTFile, "// File generated automatically by KONKANTEZER\n");
+
 
     // Call functions
     fprintf(XTFile, "int main()\n{\n\tmakeDir%s();\n\textract%s();\n\tprintf(\"Press any key to exit...\");\n\tgetchar();\n\treturn 0;\n}", variableBaseName, variableBaseName);  
@@ -361,6 +371,9 @@ void dirKonkantezer(char* dirName, char* Prefix)
 
     // Includes and declarartions
     fprintf(outputFile, "#pragma once\n#ifndef %s_h\n#define %s_h\n\n#include <stdio.h>\n#include <stdint.h>\n#include <sys/stat.h>\n\n", variableBaseName, variableBaseName);
+
+    // Write help
+    fprintf(outputFile, "// File generated automatically by KONKANTEZER\n");
 
     // Write directory maker
     printf("Writing directory maker function...\n");
@@ -404,9 +417,9 @@ void dirKonkantezer(char* dirName, char* Prefix)
         // Get file to write to
         char* currentXTFileName = malloc(strlen(outDirName) + 3 + strlen(variableBaseName) + 6);
         if (XTFileCount < 10)
-            snprintf(currentXTFileName, (strlen(outDirName) + 3 + strlen(variableBaseName) + 6), "%s/XT%s_0%i.c", outDirName, variableBaseName, XTFileCount);
+            sprintf(currentXTFileName, "%s/XT%s_0%i.c", outDirName, variableBaseName, XTFileCount);
         else if (XTFileCount >= 10)
-            snprintf(currentXTFileName, (strlen(outDirName) + 3 + strlen(variableBaseName) + 6), "%s/XT%s_%i.c", outDirName, variableBaseName, XTFileCount);
+            sprintf(currentXTFileName, "%s/XT%s_%i.c", outDirName, variableBaseName, XTFileCount);
         FILE* currentXTFile = fopen(currentXTFileName, "a+");
 
         // Include

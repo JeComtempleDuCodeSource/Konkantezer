@@ -18,9 +18,9 @@ int main(int argc, char* argv[])
     {
         char* elementName = malloc(strlen(argv[1]) + 1);
         char* extractDir = malloc(strlen(argv[2]) + 1);
-        strncpy(elementName, argv[1], strlen(argv[1]) + 1);
-        strncpy(extractDir, argv[2], strlen(argv[2]) + 1);
-        printf("KONKANTEZER Version: %i.%i\n", Konkantezer_VERSION_MAJOR, Konkantezer_VERSION_MINOR);
+        strcpy(elementName, argv[1]);
+        strcpy(extractDir, argv[2]);
+        printf("KONKANTEZER Version: %i.%i.%i\n", Konkantezer_VERSION_MAJOR, Konkantezer_VERSION_MINOR, Konkantezer_VERSION_PATCH);
         printf("Report issues at \"https://github.com/JeComtempleDuCodeSource/Konkantezer\"\n");
         printf("Ensure that %s is a valid path!\n", extractDir);
 
@@ -34,21 +34,21 @@ int main(int argc, char* argv[])
             char* slashEndingElementName = malloc(elementNameLength + 2);
             if (elementName[elementNameLength - 1] != '\\' && elementName[elementNameLength - 1] != '/')
             {
-                strncpy(slashEndingElementName, elementName, (elementNameLength + 2));
+                strcpy(slashEndingElementName, elementName);
                 slashEndingElementName[elementNameLength] = '/';
                 slashEndingElementName[elementNameLength + 1] = '\0';
             }
-            else strncpy(slashEndingElementName, elementName, (elementNameLength + 2));
+            else strcpy(slashEndingElementName, elementName);
 
             unsigned int extractDirNameLength = strlen(extractDir);
             char* slashEndingExtractDirName = malloc(extractDirNameLength + 2);
             if (extractDir[extractDirNameLength - 1] != '\\' && extractDir[extractDirNameLength - 1] != '/')
             {
-                strncpy(slashEndingExtractDirName, extractDir, (extractDirNameLength + 2));
+                strcpy(slashEndingExtractDirName, extractDir);
                 slashEndingExtractDirName[extractDirNameLength] = '/';
                 slashEndingExtractDirName[extractDirNameLength + 1] = '\0';
             }
-            else strncpy(slashEndingExtractDirName, extractDir, (extractDirNameLength + 2));
+            else strcpy(slashEndingExtractDirName, extractDir);
             dirKonkantezer(slashEndingElementName, slashEndingExtractDirName);
             free(slashEndingElementName);
             free(slashEndingExtractDirName);
@@ -59,11 +59,11 @@ int main(int argc, char* argv[])
             char* slashEndingExtractDirName = malloc(extractDirNameLength + 2);
             if (extractDir[extractDirNameLength - 1] != '\\' && extractDir[extractDirNameLength - 1] != '/')
             {
-                strncpy(slashEndingExtractDirName, extractDir, (extractDirNameLength + 1));
+                strcpy(slashEndingExtractDirName, extractDir);
                 slashEndingExtractDirName[extractDirNameLength] = '/';
                 slashEndingExtractDirName[extractDirNameLength + 1] = '\0';
             }
-            else strncpy(slashEndingExtractDirName, extractDir, (extractDirNameLength + 2));
+            else strcpy(slashEndingExtractDirName, extractDir);
             konkantezerSingle(elementName, slashEndingExtractDirName);
             free(slashEndingExtractDirName);
         }

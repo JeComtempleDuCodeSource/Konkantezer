@@ -5,9 +5,8 @@ Simple C program that helps you create an C array to embed any file in to your C
 It can also create ready to be compiled C source to extract directories, very helpful if you don't want to ship your program in a .zip or .tar.gz/bz2/xz.
  
 ## TO DO
-* Comment code: On going! 
-* Selectable maximum size of .c parts: Soon! 
-* Pairing with compression: With the Treemer program i'll try to do something. 
+* Comment code.
++ Selectable maximum size of .c parts.
 * Colored output with the help of Prisma.h.
 
 ## Use 
@@ -28,10 +27,10 @@ Konkantezer [directory_name] [extract_directory]```
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     git clone "https://github.com/JeComtempleDuCodeSource/Konkantezer"``` \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
-    cd "./Konkantezer/Source"``` 
+    cd "./Konkantezer"``` 
 * If you're on windows and using mingw:\
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
-    cmake -G"MinGW Makefiles" -B"./build" -S"./"``` \
+    cmake -G"MinGW Makefiles" -B"./build" -S"./Source"``` \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     cd "./build"``` \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
@@ -39,7 +38,7 @@ Konkantezer [directory_name] [extract_directory]```
 
 * If not just:\
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
-    cmake -B"./build -S./"``` \
+    cmake -B"./build -S./Source"``` \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     cd "./build"``` \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
