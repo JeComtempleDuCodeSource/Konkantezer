@@ -73,11 +73,11 @@ char* getOutputFileNameNoBasename(char* filePath, char* Prefix, char* Suffix)
     unsigned int Occurencies = 0;
     for (unsigned int Index = 0; Index < strlen(filePath); Index++)
     {
-        if (filePath[Index] == '/'  || filePath[Index] == ':' ||
-            filePath[Index] == '\\' || filePath[Index] == '*' ||
-            filePath[Index] == '<'  || filePath[Index] == '?' ||
-            filePath[Index] == '>'  || filePath[Index] == '\"' ||
-            filePath[Index] == '|'  || filePath[Index] == '.')
+        if ((filePath[Index] == '/')  || (filePath[Index] == ':') ||
+            (filePath[Index] == '\\') || (filePath[Index] == '*') ||
+            (filePath[Index] == '<')  || (filePath[Index] == '?') ||
+            (filePath[Index] == '>')  || (filePath[Index] == '\"') ||
+            (filePath[Index] == '|')  || (filePath[Index] == '.'))
         {
             Occurencies++;
         }
@@ -87,11 +87,11 @@ char* getOutputFileNameNoBasename(char* filePath, char* Prefix, char* Suffix)
     unsigned int newIndex = 0;
     for (unsigned int Index = 0; Index < strlen(filePath); Index++)
     {
-        if (filePath[Index] != '/' && filePath[Index] != ':' &&
-            filePath[Index] != '\\' && filePath[Index] != '*' &&
-            filePath[Index] != '<' && filePath[Index] != '?' &&
-            filePath[Index] != '>' && filePath[Index] != '\"' &&
-            filePath[Index] != '|' && filePath[Index] != '.')
+        if ((filePath[Index] != '/')  && (filePath[Index] != ':') &&
+            (filePath[Index] != '\\') && (filePath[Index] != '*') &&
+            (filePath[Index] != '<')  && (filePath[Index] != '?') &&
+            (filePath[Index] != '>')  && (filePath[Index] != '\"') &&
+            (filePath[Index] != '|')  && (filePath[Index] != '.'))
         {
             outputFileName[newIndex] = filePath[Index];
             newIndex++;
@@ -109,11 +109,11 @@ char* getOutputFileName(char* filePath, char* dirBaseName, char* Prefix, char* S
     unsigned int Occurencies = 0;
     for (unsigned int Index = 0; Index < strlen(filePath); Index++)
     {
-        if (filePath[Index] == '/'  || filePath[Index] == ':' ||
-            filePath[Index] == '\\' || filePath[Index] == '*' ||
-            filePath[Index] == '<'  || filePath[Index] == '?' ||
-            filePath[Index] == '>'  || filePath[Index] == '\"' ||
-            filePath[Index] == '|'  || filePath[Index] == '.')
+        if ((filePath[Index] == '/')  || (filePath[Index] == ':') ||
+            (filePath[Index] == '\\') || (filePath[Index] == '*') ||
+            (filePath[Index] == '<')  || (filePath[Index] == '?') ||
+            (filePath[Index] == '>')  || (filePath[Index] == '\"') ||
+            (filePath[Index] == '|')  || (filePath[Index] == '.'))
         {
             Occurencies++;
         }
@@ -123,11 +123,11 @@ char* getOutputFileName(char* filePath, char* dirBaseName, char* Prefix, char* S
     unsigned int newIndex = 0;
     for (unsigned int Index = 0; Index < strlen(filePath); Index++)
     {
-        if (filePath[Index] != '/' && filePath[Index] != ':' &&
-            filePath[Index] != '\\' && filePath[Index] != '*' &&
-            filePath[Index] != '<' && filePath[Index] != '?' &&
-            filePath[Index] != '>' && filePath[Index] != '\"' &&
-            filePath[Index] != '|' && filePath[Index] != '.')
+        if ((filePath[Index] != '/')  && (filePath[Index] != ':') &&
+            (filePath[Index] != '\\') && (filePath[Index] != '*') &&
+            (filePath[Index] != '<')  && (filePath[Index] != '?') &&
+            (filePath[Index] != '>')  && (filePath[Index] != '\"') &&
+            (filePath[Index] != '|')  && (filePath[Index] != '.'))
         {
             outputFileName[newIndex] = filePath[Index];
             newIndex++;
@@ -179,7 +179,7 @@ void writeXTFunction(FILE* outputFile, char* inputFileName, char* variableBaseNa
     fprintf(outputFile, "}\n\n");
 }
 
-void writeCTFunction(FILE* outputFile, char* variableBaseName, char** dirList, char* Prefix, unsigned int directoryCount)
+void writeMDFunction(FILE* outputFile, char* variableBaseName, char** dirList, char* Prefix, unsigned int directoryCount)
 {
     fprintf(outputFile, "void makeDir%s()\n{\n", variableBaseName);
 
@@ -257,7 +257,7 @@ void konkantezerSingle(char* inputFileName, char* Prefix)
             dirCount++;
         }
     }
-    writeCTFunction(outputFile, variableBaseName, dirList, "./", subDirectoryCount);
+    writeMDFunction(outputFile, variableBaseName, dirList, "./", subDirectoryCount);
 
     // Write extract function
     writeXTFunction(outputFile, inputFileName, variableBaseName, fileSize);
@@ -377,7 +377,7 @@ void dirKonkantezer(char* dirName, char* Prefix)
 
     // Write directory maker
     printf("Writing directory maker function...\n");
-    writeCTFunction(outputFile, variableBaseName, dirList, Prefix, directoryCount);
+    writeMDFunction(outputFile, variableBaseName, dirList, Prefix, directoryCount);
     printf("Wrote directory maker function successfully!\n");
     
     // Write file declares

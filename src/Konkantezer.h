@@ -40,7 +40,7 @@ void konkantezerSingle(char* inputFileName, char* Prefix);
 void Konkantezer(char* inputFileName, char* baseName, char* Prefix);
 
 // Directory maker
-void writeCTFunction(FILE* outputFile, char* variableBaseName, char** dirList, char* Prefix, unsigned int directoryCount);
+void writeMDFunction(FILE* outputFile, char* variableBaseName, char** dirList, char* Prefix, unsigned int directoryCount);
 
 // Wrapper for batch konkantezer
 void dirKonkantezer(char* dirName, char* Prefix);

@@ -1,4 +1,4 @@
-cmake -B"./build" -S"./Source"
+cmake -B"./build" -S"./src"
 cd "./build"
 make
 echo "Press any key to exit..."

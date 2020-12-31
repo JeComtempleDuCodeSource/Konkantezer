@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Set the project name and version
-project(Konkantezer VERSION 0.9.2)
+project(Konkantezer VERSION 0.9.1)
 
 # Configure version
-configure_file("${CMAKE_CURRENT_LIST_DIR}/CMake.h.in" "${CMAKE_CURRENT_LIST_DIR}/CMake.h")
+configure_file("${CMAKE_CURRENT_LIST_DIR}/KonkantezerVersion.h.in" "${CMAKE_CURRENT_LIST_DIR}/KonkantezerVersion.h")
 
 # Add the executable and icon if windows
 if (WIN32)
