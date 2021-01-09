@@ -1,6 +1,7 @@
 /.vscode/
 /build/
 /Wrapper.sh
-/src/KKTZ.bmp
+/src/KKTZ_2048.bmp
+/src/KonkantezerVersion.h
 /konkantezer-auto-setup-gcc.sh
 /konkantezer-auto-setup-mingw.cmd
