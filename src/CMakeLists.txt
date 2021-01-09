@@ -6,21 +6,24 @@ project(Konkantezer VERSION 0.9.1)
 # Configure version
 configure_file("${CMAKE_CURRENT_LIST_DIR}/KonkantezerVersion.h.in" "${CMAKE_CURRENT_LIST_DIR}/KonkantezerVersion.h")
 
-# Add the executable and icon if windows
-if (WIN32)
-add_executable(Konkantezer 
+# Reduce redundancy
+set(Konkantezer-Src-List 
                 "${CMAKE_CURRENT_LIST_DIR}/main.c"
                 "${CMAKE_CURRENT_LIST_DIR}/Konkantezer.c"
                 "${CMAKE_CURRENT_LIST_DIR}/directScanUtil.c"
-		"${CMAKE_CURRENT_LIST_DIR}/Konkantezer.rc"
 )
+
+# Add icon if windows
+if (WIN32)
+        add_executable(Konkantezer 
+                        "${Konkantezer-Src-List}"
+                        "${CMAKE_CURRENT_LIST_DIR}/Konkantezer.rc"
+        )
 # If not windows
 else()
-add_executable(Konkantezer 
-                "${CMAKE_CURRENT_LIST_DIR}/main.c"
-                "${CMAKE_CURRENT_LIST_DIR}/Konkantezer.c"
-                "${CMAKE_CURRENT_LIST_DIR}/directScanUtil.c"
-)
+        add_executable(Konkantezer 
+                        "${Konkantezer-Src-List}"
+        )
 endif()
 
 # Includes
