@@ -10,7 +10,7 @@
 
 #include "directScanUtil.h"
 
-#define OBJECT_BLOCK_SIZE 104857600
+#define OBJECT_BLOCK_SIZE 104858000
 
 // Deletes all occurencies of a character of a string
 char* stripByteFromString(char* String, char toRemove);
