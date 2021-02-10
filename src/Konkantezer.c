@@ -1,23 +1,5 @@
 #include "Konkantezer.h"
 
-char* stripByteFromString(char* String, char toRemove)
-{ 
-    unsigned int stringLength = strlen(String);
-    unsigned int Occurencies = 0;
-    for (unsigned int Index = 0; Index < stringLength; Index++) 
-        if (String[Index] == toRemove)
-            Occurencies++;
-
-    char* returnString = malloc((stringLength - Occurencies) + 1);
-
-    unsigned int newIndex = 0;
-    for (unsigned int Index = 0; Index < stringLength; Index++) 
-        if (String[Index] != toRemove)
-            returnString[newIndex++] = String[Index];
-    returnString[newIndex] = '\0'; 
-    return returnString;
-} 
-
 unsigned int getOpenedFileSize(FILE* File)
 {
     unsigned int originalPosition = ftell(File);

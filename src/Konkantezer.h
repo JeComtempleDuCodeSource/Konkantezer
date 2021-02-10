@@ -10,10 +10,8 @@
 
 #include "directScanUtil.h"
 
+// "100 MiB"
 #define OBJECT_BLOCK_SIZE 104858000
-
-// Deletes all occurencies of a character of a string
-char* stripByteFromString(char* String, char toRemove);
 
 // Get file size of a already opened file
 unsigned int getOpenedFileSize(FILE* File);
