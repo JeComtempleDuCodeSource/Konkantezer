@@ -1,4 +1,3 @@
-#pragma once
 #ifndef srcmainc_h
 #define srcmainc_h
 

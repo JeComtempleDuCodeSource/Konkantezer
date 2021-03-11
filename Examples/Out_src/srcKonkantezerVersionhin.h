@@ -1,4 +1,3 @@
-#pragma once
 #ifndef srcKonkantezerVersionhin_h
 #define srcKonkantezerVersionhin_h
 

@@ -1,4 +1,3 @@
-#pragma once
 #ifndef srcKonkantezerh_h
 #define srcKonkantezerh_h
 

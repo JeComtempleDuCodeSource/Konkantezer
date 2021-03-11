@@ -1,4 +1,3 @@
-#pragma once
 #ifndef KONKANTEZER_H
 #define KONKANTEZER_H
 

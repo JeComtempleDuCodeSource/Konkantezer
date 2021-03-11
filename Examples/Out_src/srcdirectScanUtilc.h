@@ -1,4 +1,3 @@
-#pragma once
 #ifndef srcdirectScanUtilc_h
 #define srcdirectScanUtilc_h
 

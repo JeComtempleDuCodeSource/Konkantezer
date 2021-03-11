@@ -212,7 +212,7 @@ void konkantezerSingle(char* inputFileName, char* Prefix)
     unsigned int fileSize = getOpenedFileSize(inputFile);
 
     // Includes and declarartions
-    fprintf(outputFile, "#pragma once\n#ifndef %s_h\n#define %s_h\n\n#include <stdio.h>\n#include <stdint.h>\n#include <sys/stat.h>\n\n", variableBaseName, variableBaseName);
+    fprintf(outputFile, "#ifndef %s_h\n#define %s_h\n\n#include <stdio.h>\n#include <stdint.h>\n#include <sys/stat.h>\n\n", variableBaseName, variableBaseName);
     
     // Write help
     fprintf(outputFile, "// File generated automatically by KONKANTEZER\n");
@@ -276,7 +276,7 @@ void Konkantezer(char* inputFileName, char* baseName, char* Prefix)
     unsigned int fileSize = getOpenedFileSize(inputFile);
 
     // Includes and declarartions
-    fprintf(outputFile, "#pragma once\n#ifndef %s_h\n#define %s_h\n\n#include <stdio.h>\n#include <stdint.h>\n\n", variableBaseName, variableBaseName);
+    fprintf(outputFile, "#ifndef %s_h\n#define %s_h\n\n#include <stdio.h>\n#include <stdint.h>\n\n", variableBaseName, variableBaseName);
     
     // Write help
     fprintf(outputFile, "// File generated automatically by KONKANTEZER\n");
@@ -352,7 +352,7 @@ void dirKonkantezer(char* dirName, char* Prefix)
     FILE* outputFile = fopen(outputFileName, "wb+");
 
     // Includes and declarartions
-    fprintf(outputFile, "#pragma once\n#ifndef %s_h\n#define %s_h\n\n#include <stdio.h>\n#include <stdint.h>\n#include <sys/stat.h>\n\n", variableBaseName, variableBaseName);
+    fprintf(outputFile, "#ifndef %s_h\n#define %s_h\n\n#include <stdio.h>\n#include <stdint.h>\n#include <sys/stat.h>\n\n", variableBaseName, variableBaseName);
 
     // Write help
     fprintf(outputFile, "// File generated automatically by KONKANTEZER\n");

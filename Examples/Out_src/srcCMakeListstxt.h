@@ -1,4 +1,3 @@
-#pragma once
 #ifndef srcCMakeListstxt_h
 #define srcCMakeListstxt_h
 

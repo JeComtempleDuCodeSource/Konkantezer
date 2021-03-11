@@ -1,4 +1,3 @@
-#pragma once
 #ifndef srcKKTZ256x256ico_h
 #define srcKKTZ256x256ico_h
 
