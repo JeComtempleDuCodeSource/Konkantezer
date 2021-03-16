@@ -32,16 +32,12 @@ Konkantezer [directory_name] [extract_directory]```
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     cmake -G"MinGW Makefiles" -B"./build" -S"./src"``` \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
-    cd "./build"``` \
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
-    mingw32-make``` 
+    cmake --build "./build" -j2```
 
 * If not just:\
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     cmake -B"./build -S./src"``` \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
-    cd "./build"``` \
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
-    make``` 
+    cmake --build "./build" -j 2``` 
 
 *  Instead of running these command manually you can also run them automatically with the "auto-build[compiler_name].sh/.cmd" files
