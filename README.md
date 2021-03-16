@@ -23,7 +23,7 @@ Konkantezer [directory_name] [extract_directory]```
 ##### From there you can either include the .h files etc...(like said in the few lines up) or you can compile individually the XT[original_directory_name]_[part_number].c files, link them with XT[original_directory_name]main.c to get an bare-bones automatic extractor or include the [original_directory_name]main.h header, call the makedir and extract function from your own program and don't forget to link them.
 
 ## Build:
-* For building you'll need git, cmake, and a compiler of course(clang, gcc, mingw-w64 or tdm-gcc should work) and once you get that simply run:\
+* For building you'll need git, cmake, and a C compiler of course(clang, gcc, mingw-w64 or tdm-gcc should work) and once you get that simply run:\
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     git clone "https://github.com/JeComtempleDuCodeSource/Konkantezer"``` \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
