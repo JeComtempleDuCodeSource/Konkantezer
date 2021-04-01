@@ -25,7 +25,7 @@ Konkantezer [directory_name] [extract_directory]```
 ## Build:
 * For building you'll need git, cmake, and a C compiler of course(clang, gcc, mingw-w64 or tdm-gcc should work) and once you get that simply run:\
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
-    git clone "https://github.com/JeComtempleDuCodeSource/Konkantezer"``` \
+    git clone "https://github.com/JeFaitDesSpaghettis/Konkantezer"``` \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```
     cd "./Konkantezer"``` 
 * If you're on windows and using mingw:\

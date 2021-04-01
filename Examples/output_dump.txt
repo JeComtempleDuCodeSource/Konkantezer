@@ -1,5 +1,5 @@
 KONKANTEZER Version: 0.9.1
-Report issues at "https://github.com/JeComtempleDuCodeSource/Konkantezer"
+Report issues at "https://github.com/JeFaitDesSpaghettis/Konkantezer"
 Ensure that ./ is a valid path!
 Converting all files from ./src/ to ./Out_src...
 Packing ./src/CMakeLists.txt...
