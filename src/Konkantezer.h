@@ -7,7 +7,7 @@
 #include <ctype.h>
 #include <libgen.h>
 
-#include "directScanUtil.h"
+#include "DirScanUtil.h"
 
 // "100 MiB"
 #define OBJECT_BLOCK_SIZE 104858000
@@ -16,30 +16,49 @@
 unsigned int getOpenedFileSize(FILE* File);
 
 // Return C valid variable name
-char* getVarBaseName(char* filePath);
+char* getVarBaseName(const char* filePath);
 
 // Gives output file name without prefix
-char* getOutputFileNameNoBasename(char* filePath, char* Prefix, char* Suffix);
+char* getOutputFileNameNoBasename(const char* filePath, const char* Prefix, const char* Suffix);
 
 // Gives output file name with prefix
-char* getOutputFileName(char* filePath, char* dirBaseName, char* Prefix, char* Suffix);
+char* getOutputFileName(
+    const char* filePath, 
+    const char* dirBaseName, 
+    const char* Prefix, 
+    const char* Suffix);
 
 // Write file
-void writeArray(FILE* inputFile, FILE* outputFile, char* inputFileName, char* Prefix, char* variableBaseName, unsigned int fileSize);
+void writeArray(
+    FILE* inputFile, 
+    FILE* outputFile, 
+    const char* inputFileName, 
+    const char* Prefix, 
+    const char* variableBaseName, 
+    unsigned int fileSize);
 
 // Write extractor
-void writeXTFunction(FILE* outputFile, char* inputFileName, char* variableBaseName, unsigned int fileSize);
+void writeExtractor(
+    FILE* outputFile, 
+    const char* inputFileName, 
+    const char* variableBaseName, 
+    unsigned int fileSize);
 
 // Single file
-void konkantezerSingle(char* inputFileName, char* Prefix);
+void konkantezerSingle(const char* inputFileName, const char* Prefix);
 
 // Multiple files
-void Konkantezer(char* inputFileName, char* baseName, char* Prefix);
+void Konkantezer(const char* inputFileName, const char* baseName, const char* Prefix);
 
 // Directory maker
-void writeMDFunction(FILE* outputFile, char* variableBaseName, char** dirList, char* Prefix, unsigned int directoryCount);
+void writeDirMaker(
+    FILE* outputFile, 
+    const char* variableBaseName, 
+    char** dirList, 
+    const char* Prefix, 
+    unsigned int directoryCount);
 
 // Wrapper for batch konkantezer
-void dirKonkantezer(char* dirName, char* Prefix);
+void dirKonkantezer(const char* dirName, const char* Prefix);
 
 #endif /* KONKANTEZER_H */

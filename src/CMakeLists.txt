@@ -10,7 +10,7 @@ configure_file("${CMAKE_CURRENT_LIST_DIR}/KonkantezerVersion.h.in" "${CMAKE_CURR
 set(Konkantezer-Src-List 
                 "${CMAKE_CURRENT_LIST_DIR}/main.c"
                 "${CMAKE_CURRENT_LIST_DIR}/Konkantezer.c"
-                "${CMAKE_CURRENT_LIST_DIR}/directScanUtil.c"
+                "${CMAKE_CURRENT_LIST_DIR}/DirScanUtil.c"
 )
 
 # Add icon if windows

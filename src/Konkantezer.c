@@ -9,7 +9,7 @@ unsigned int getOpenedFileSize(FILE* File)
     return fileSize;
 }
 
-char* getVarBaseName(char* filePath)
+char* getVarBaseName(const char* filePath)
 {
     unsigned int Occurencies = 0;
     for (unsigned int Index = 0; Index < strlen(filePath); Index++)
@@ -50,7 +50,7 @@ char* getVarBaseName(char* filePath)
     return varName;
 }
 
-char* getOutputFileNameNoBasename(char* filePath, char* Prefix, char* Suffix)
+char* getOutputFileNameNoBasename(const char* filePath, const char* Prefix, const char* Suffix)
 {
     unsigned int Occurencies = 0;
     for (unsigned int Index = 0; Index < strlen(filePath); Index++)
@@ -86,7 +86,11 @@ char* getOutputFileNameNoBasename(char* filePath, char* Prefix, char* Suffix)
     return outputFileName0;
 }
 
-char* getOutputFileName(char* filePath, char* dirBaseName, char* Prefix, char* Suffix)
+char* getOutputFileName(
+    const char* filePath, 
+    const char* dirBaseName, 
+    const char* Prefix, 
+    const char* Suffix)
 {
     unsigned int Occurencies = 0;
     for (unsigned int Index = 0; Index < strlen(filePath); Index++)
@@ -122,7 +126,13 @@ char* getOutputFileName(char* filePath, char* dirBaseName, char* Prefix, char* S
     return outputFileName0;
 }
 
-void writeArray(FILE* inputFile, FILE* outputFile, char* inputFileName, char* Prefix, char* variableBaseName, unsigned int fileSize)
+void writeArray(
+    FILE* inputFile, 
+    FILE* outputFile, 
+    const char* inputFileName, 
+    const char* Prefix, 
+    const char* variableBaseName, 
+    unsigned int fileSize)
 {
     fprintf(outputFile, "static const char %sName[] = \"%s%s\";\n", variableBaseName, Prefix, inputFileName);
     fprintf(outputFile, "static const unsigned int %sSize = %i;\n", variableBaseName, fileSize);
@@ -150,7 +160,7 @@ void writeArray(FILE* inputFile, FILE* outputFile, char* inputFileName, char* Pr
     fprintf(outputFile, "};\n\n");
 }
 
-void writeXTFunction(FILE* outputFile, char* inputFileName, char* variableBaseName, unsigned int fileSize)
+void writeExtractor(FILE* outputFile, const char* inputFileName, const char* variableBaseName, unsigned int fileSize)
 {
     fprintf(outputFile, "void extract%s()\n{\n", variableBaseName);
     fprintf(outputFile, "\tprintf(\"Extracting %%s...\\n\", %sName);\n", variableBaseName);
@@ -161,7 +171,12 @@ void writeXTFunction(FILE* outputFile, char* inputFileName, char* variableBaseNa
     fprintf(outputFile, "}\n\n");
 }
 
-void writeMDFunction(FILE* outputFile, char* variableBaseName, char** dirList, char* Prefix, unsigned int directoryCount)
+void writeDirMaker(
+    FILE* outputFile, 
+    const char* variableBaseName, 
+    char** dirList, 
+    const char* Prefix, 
+    unsigned int directoryCount)
 {
     fprintf(outputFile, "void makeDir%s()\n{\n", variableBaseName);
 
@@ -190,7 +205,7 @@ void writeMDFunction(FILE* outputFile, char* variableBaseName, char** dirList, c
     fprintf(outputFile, "}\n\n");
 }
 
-void konkantezerSingle(char* inputFileName, char* Prefix)
+void konkantezerSingle(const char* inputFileName, const char* Prefix)
 {
     printf("Konkantezing %s...\n", inputFileName);
     char* variableBaseName = getVarBaseName(inputFileName);
@@ -239,10 +254,10 @@ void konkantezerSingle(char* inputFileName, char* Prefix)
             dirCount++;
         }
     }
-    writeMDFunction(outputFile, variableBaseName, dirList, "./", subDirectoryCount);
+    writeDirMaker(outputFile, variableBaseName, dirList, "./", subDirectoryCount);
 
     // Write extract function
-    writeXTFunction(outputFile, inputFileName, variableBaseName, fileSize);
+    writeExtractor(outputFile, inputFileName, variableBaseName, fileSize);
 
     // Endif
     fprintf(outputFile, "#endif /* %s_h */", variableBaseName);
@@ -255,7 +270,7 @@ void konkantezerSingle(char* inputFileName, char* Prefix)
     fclose(outputFile);
 }
 
-void Konkantezer(char* inputFileName, char* baseName, char* Prefix)
+void Konkantezer(const char* inputFileName, const char* baseName, const char* Prefix)
 {
     char* variableBaseName = getVarBaseName(inputFileName);
     char* outputFileName = getOutputFileName(inputFileName, baseName, "./Out_", ".h");
@@ -285,7 +300,7 @@ void Konkantezer(char* inputFileName, char* baseName, char* Prefix)
     writeArray(inputFile, outputFile, inputFileName, Prefix, variableBaseName, fileSize);    
 
     // Write extract function
-    writeXTFunction(outputFile, inputFileName, variableBaseName, fileSize);
+    writeExtractor(outputFile, inputFileName, variableBaseName, fileSize);
 
     // Endif
     fprintf(outputFile, "#endif /* %s_h */", variableBaseName);
@@ -296,7 +311,7 @@ void Konkantezer(char* inputFileName, char* baseName, char* Prefix)
     fclose(outputFile);
 }
 
-void dirKonkantezer(char* dirName, char* Prefix)
+void dirKonkantezer(const char* dirName, const char* Prefix)
 {
     // I: Konkantetize all the files
     // Setting up names and output directory
@@ -359,7 +374,7 @@ void dirKonkantezer(char* dirName, char* Prefix)
 
     // Write directory maker
     printf("Writing directory maker function...\n");
-    writeMDFunction(outputFile, variableBaseName, dirList, Prefix, directoryCount);
+    writeDirMaker(outputFile, variableBaseName, dirList, Prefix, directoryCount);
     printf("Wrote directory maker function successfully!\n");
     
     // Write file declares

@@ -2,19 +2,19 @@
 #include <time.h>
 #include "Konkantezer.h"
 
-char* addSlashAtTheEnd(char* inputPath)
+char* addSlashAtTheEnd(const char* inputPath)
 {
     unsigned int inputPathLength = strlen(inputPath);
-    char* pathWithSlashAtTheEnd = malloc(inputPathLength + 2);
+    char* pathWithSlash = malloc(inputPathLength + 2);
     if (inputPath[inputPathLength - 1] != '\\' && inputPath[inputPathLength - 1] != '/')
     {
-        strcpy(pathWithSlashAtTheEnd, inputPath);
-        pathWithSlashAtTheEnd[inputPathLength] = '/';
-        pathWithSlashAtTheEnd[inputPathLength + 1] = '\0';
+        strcpy(pathWithSlash, inputPath);
+        pathWithSlash[inputPathLength] = '/';
+        pathWithSlash[inputPathLength + 1] = '\0';
     }
     else 
-        strcpy(pathWithSlashAtTheEnd, inputPath);
-    return pathWithSlashAtTheEnd;
+        strcpy(pathWithSlash, inputPath);
+    return pathWithSlash;
 }
 
 int main(int argc, char* argv[]) 
