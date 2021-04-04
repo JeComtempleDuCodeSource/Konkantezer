@@ -1,7 +1,6 @@
 #include "srcCMakeListstxt.h"
 #include "srcDirScanUtilc.h"
 #include "srcDirScanUtilh.h"
-#include "srcKKTZ_2048bmp.h"
 #include "srcKKTZ_256bmp.h"
 #include "srcKKTZ_256ico.h"
 #include "srcKonkantezerc.h"

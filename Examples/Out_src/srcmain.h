@@ -19,7 +19,6 @@ void makeDirsrc()
 extern void extractsrcCMakeListstxt();
 extern void extractsrcDirScanUtilc();
 extern void extractsrcDirScanUtilh();
-extern void extractsrcKKTZ_2048bmp();
 extern void extractsrcKKTZ_256bmp();
 extern void extractsrcKKTZ_256ico();
 extern void extractsrcKonkantezerc();
@@ -34,7 +33,6 @@ void extractsrc()
 	extractsrcCMakeListstxt();
 	extractsrcDirScanUtilc();
 	extractsrcDirScanUtilh();
-	extractsrcKKTZ_2048bmp();
 	extractsrcKKTZ_256bmp();
 	extractsrcKKTZ_256ico();
 	extractsrcKonkantezerc();
