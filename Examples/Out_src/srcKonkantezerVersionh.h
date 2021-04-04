@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 // File generated automatically by KONKANTEZER
-static const char srcKonkantezerVersionhName[] = "././src/KonkantezerVersion.h";
+static const char srcKonkantezerVersionhName[] = "./src/KonkantezerVersion.h";
 static const unsigned int srcKonkantezerVersionhSize = 111;
 static const uint8_t srcKonkantezerVersionh[] = 
 {
